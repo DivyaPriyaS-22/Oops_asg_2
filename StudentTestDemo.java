@@ -1,43 +1,33 @@
 package StudentTestDemo;
 
-import java.util.Objects;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Student {
-    private String studentId;
-    private String studentName;
+public class StudentTestDemo {
+    public static void main(String[] args) {
+        try {
+            Student student1 = new Student("123", "John");
+            Student student2 = new Student("456", "Alice");
+            Student student3 = new Student("789", "Bob");
+            Student student4 = new Student("101", "Mary");
+            Student student5 = new Student("102", "Steve");
+            Student student6 = new Student("123", "John"); // Duplicate of student1
 
-    public Student(String studentId, String studentName) {
-        if (studentId == null || studentName == null || studentName.isEmpty()) {
-            throw new IllegalArgumentException("Student ID and name must not be null or empty");
+            Set<Student> studentSet = new HashSet<>();
+            studentSet.add(student1);
+            studentSet.add(student2);
+            studentSet.add(student3);
+            studentSet.add(student4);
+            studentSet.add(student5);
+            studentSet.add(student6); // Should not be added
+
+            System.out.println("Students in HashSet:");
+            for (Student student : studentSet) {
+                System.out.println(student);
+            }
+
+        } catch (IllegalArgumentException ex) {
+            System.out.println("Error creating student: " + ex.getMessage());
         }
-        this.studentId = studentId;
-        this.studentName = studentName;
-    }
-
-    public String getStudentId() {
-        return studentId;
-    }
-
-    public String getStudentName() {
-        return studentName;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Student)) return false;
-        Student other = (Student) obj;
-        return Objects.equals(studentId, other.studentId) &&
-               Objects.equals(studentName, other.studentName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(studentId, studentName);
-    }
-
-    @Override
-    public String toString() {
-        return studentName + " (" + studentId + ")";
     }
 }
